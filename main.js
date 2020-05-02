@@ -188,7 +188,7 @@ var rankingTabela = [];
 var jsonRanking = "{\n    \"mm\": [\n        0,\n        1,\n        1\n    ],\n    \"ss\": [\n        55,\n        5,\n        7\n    ],\n    \"stat\": [\n        [[-1,-1], [-1,-1], [-1,-1], [-1,-1]],\n        [[-1,-1], [-1,-1], [-1,-1], [-1,-1]],\n        [[-1,-1], [-1,-1], [-1,-1], [-1,-1]]\n    ]\n}"; // dafault fake ranking
 // stat -1 oznacza ze gracz nie chcial zapisac statystyk
 // localStorage.setItem("jsonRanking", jsonRanking); //odkomentowanie tej linijki i zagranie w quiz spowoduje przywrócenie deafultowych wartości (plus nowy wynik)
-if (localStorage.getItem("jsonRanking") === undefined) {
+if (localStorage.getItem("jsonRanking") === null) {
     console.log("nie bylo");
     localStorage.setItem("jsonRanking", jsonRanking);
 }
