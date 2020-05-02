@@ -253,7 +253,7 @@ let jsonRanking: string = `{
 
 // localStorage.setItem("jsonRanking", jsonRanking); //odkomentowanie tej linijki i zagranie w quiz spowoduje przywrócenie deafultowych wartości (plus nowy wynik)
 
-if (localStorage.getItem("jsonRanking") === undefined) {
+if (localStorage.getItem("jsonRanking") === null) {
     console.log("nie bylo");
     localStorage.setItem("jsonRanking", jsonRanking);
 } else {
