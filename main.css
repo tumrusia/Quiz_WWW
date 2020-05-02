@@ -1,0 +1,121 @@
+@font-face {
+    font-family: "Jost";
+    src: url("Jost-Font/Jost-400-Book.ttf") format("truetype");
+}
+
+body {
+    font-family: "Jost", Arial;
+    background-image: url("background.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    color: white;
+}
+
+header {
+    text-align: center;
+    font-size: 80px;
+    margin: 15% 0 10% 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn__start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    opacity: 0.6;
+    height: 100px;
+    width: 30%;
+    margin: 0 35%;
+    color: black;
+    font-size: 40px;
+    text-transform: uppercase;
+    transition: opacity 1s, width 1s, height 1s, margin 1s;
+}
+
+.btn__start:hover {
+    background-color: white;
+    opacity: 0.9;
+    height: 110px;
+    width: 32%;
+    margin: 0 34%;
+}
+
+@media (max-width: 1300px) {
+    header {
+        font-size: 70px;
+        margin: 15% 0 10% 0;
+    }
+
+    .btn__start {
+        width: 34%;
+        margin: 0 33%;
+        font-size: 35px;
+    }
+
+    .btn__start:hover {
+        width: 36%;
+        margin: 0 32%;
+    }
+}
+
+@media (max-width: 1000px) {
+    header {
+        font-size: 50px;
+        margin: 40% 0 30% 0;
+    }
+
+    .btn__start {
+        width: 50%;
+        margin: 0 25%;
+        font-size: 30px;
+    }
+
+    .btn__start:hover {
+        width: 52%;
+        margin: 0 24%;
+    }
+}
+
+@media (max-width: 550px) {
+    header {
+        font-size: 40px;
+        margin: 40% 0 30% 0;
+    }
+
+    .btn__start {
+        width: 50%;
+        margin: 0 25%;
+        font-size: 20px;
+        height: 60px;
+    }
+
+    .btn__start:hover {
+        width: 52%;
+        margin: 0 24%;
+        height: 65px;
+    }
+}
+
+@media (max-width: 450px) {
+    header {
+        font-size: 30px;
+        margin: 68% 0 25% 0;
+    }
+
+    .btn__start {
+        width: 50%;
+        margin: 0 25%;
+        font-size: 16px;
+        height: 60px;
+    }
+
+    .btn__start:hover {
+        width: 52%;
+        margin: 0 24%;
+        height: 65px;
+    }
+}

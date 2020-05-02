@@ -1,0 +1,383 @@
+@font-face {
+    font-family: "Jost";
+    src: url("Jost-Font/Jost-400-Book.ttf") format("truetype");
+}
+
+header { grid-area: header; }
+.timer { grid-area: timer; }
+.central { grid-area: cent; }
+.points { grid-area: points; }
+.navigation { grid-area: navig;}
+
+
+body {
+    font-family: "Jost", Arial;
+    background-image: url("background-light.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    color: white;
+    display: grid;
+    grid-template-areas: 
+    'header timer'
+    'cent cent'
+    'points navig';
+}
+
+header {
+    text-align: left;
+    font-size: 60px;
+    position: absolute;
+    left: 30px;
+    top: 20px;
+}
+
+.timer {
+    font-size: 100px;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+
+.question {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 45%;
+    top: 30%;
+}
+
+.wyniki {
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+    opacity: 0.8;
+    position: absolute;
+    left: 35%;
+    top: 15%;
+    height: 70%;
+    width: 30%;
+    border-radius: 2%;
+    font-size: 25px;
+    padding: 20px 0 0 40px;
+}
+
+.twoj_wynik {
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.wyniki__single {
+    margin: 5% 0 0 5%;
+}
+
+.wyniki__ranking {
+    margin-top: 7%;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.ranking__pole {
+    margin: 5% 0 0 5%;
+}
+
+.zapisz {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 85%;
+    font-size: 22px;
+}
+
+.zapisz a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn-zapisz-wynik, .btn-zapisz-stat {
+    background-color: rgb(151, 205, 250);
+    opacity: 0.9;
+    border-radius: 5%;
+    padding: 5px 10px;
+}
+
+.question__label {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.question__option {
+    font-size: 40px;
+    margin-bottom: 12px;
+    padding-left: 60px;
+    position: relative;
+}
+
+/* Hide the browser's default radio button */
+.question input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.question__option:hover input ~ .checkmark {
+    background-color: rgb(160, 235, 231);
+}
+
+.question__option input:checked ~ .checkmark {
+    background-color: rgb(40, 177, 170);
+}
+
+.points {
+    font-size: 35px;
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+}
+
+.navigation {
+    font-size: 40px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    text-align: right;
+}
+
+.navigation div {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.navigation img {
+    margin-left: 15px;
+    margin-bottom: 7px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation__finish {
+    pointer-events: none;
+    opacity: 0.5;
+}
+.navigation__prev {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@media (max-width: 1400px) {
+    header {
+        font-size: 50px;
+    }
+    
+    .timer {
+        font-size: 80px;
+    }
+
+    .wyniki__single, .ranking__pole {
+        margin-top: 4%;
+    }
+
+    .zapisz {
+        font-size: 18px;
+    }
+    
+    .points {
+        font-size: 30px;
+    }
+    
+    .navigation {
+        font-size: 30px;
+    }
+    
+    .navigation img {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 1100px) {
+    body {
+        grid-template-areas: 
+        'header timer'
+        'cent cent'
+        'navig navig'
+        'points points';
+    }
+
+    .wyniki {
+        left: 20%;
+        width: 60%;
+    }
+
+    .navigation {
+        font-size: 30px;
+        position: absolute;
+        right: 30px;
+        bottom: 100px;
+        text-align: right;
+    }
+}
+
+@media (max-width: 750px) {
+    header {
+        font-size: 40px;
+    }
+    
+    .timer {
+        font-size: 70px;
+    }
+
+    .points {
+        font-size: 20px;
+    }
+    
+    .navigation {
+        font-size: 25px;
+    }
+
+    .navigation__finish {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+    .navigation__prev {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        font-size: 30px;
+    }
+    
+    .timer {
+        font-size: 50px;
+    }
+
+    .question {
+        left: 35%;
+        top: 25%;
+    }
+
+    .wyniki {
+        left: 5%;
+        width: 87%;
+        top: 15%;
+        height: 70%;
+        font-size: 20px;
+        padding: 10px 0 0 20px;
+    }
+    
+    .twoj_wynik {
+        font-size: 25px;
+    }
+    
+    .wyniki__ranking {
+        font-size: 25px;
+        margin-top: 15%;
+    }
+
+    .zapisz {
+        font-size: 15px;
+    }
+    
+    .points {
+        font-size: 17px;
+    }
+    
+    .navigation {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 470px) {
+    header {
+        font-size: 25px;
+    }
+    
+    .timer {
+        font-size: 40px;
+        top: 80px;
+        right: 50px;
+    }
+
+    .question__label {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+    
+    .question__option {
+        font-size: 33px;
+        margin-bottom: 8px;
+        padding-left: 60px;
+        position: relative;
+    }
+
+    .wyniki {
+        font-size: 17px;
+        padding: 10px 0 0 15px;
+    }
+    
+    .twoj_wynik {
+        font-size: 20px;
+    }
+    
+    .wyniki__ranking {
+        font-size: 20px;
+    }
+
+    .wyniki__single {
+        margin: 5% 0 0 3%;
+    }
+    
+    .ranking__pole {
+        margin: 5% 0 0 3%;
+    }
+
+    .checkmark {
+        top: 10px;
+        left: 20px;
+        height: 25px;
+        width: 25px;
+    }
+
+    .zapisz {
+        font-size: 12px;
+    }
+    
+    .points {
+        font-size: 20px;
+    }
+    
+    .navigation {
+        font-size: 20px;
+    }
+
+    .navigation div {
+        margin-top: 10px;
+    }
+    
+    .navigation img {
+        height: 30px;
+        margin-left: 15px;
+    }
+}
