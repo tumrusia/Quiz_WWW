@@ -386,6 +386,10 @@ header {
 @media (max-height: 620px) {
     .points {
         display: none;
+        font-size: 13px;
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
     }
 
     .navigation {
@@ -402,5 +406,9 @@ header {
     
     .question__option {
         font-size: 25px;
+    }
+
+    .wyniki__ranking, .ranking__pole {
+        display: none;
     }
 }

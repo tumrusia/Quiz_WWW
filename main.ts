@@ -128,6 +128,7 @@ function ustawWidokWyniku() {
     calyBoxPytania.style.display = "none";
     document.body.style.backgroundImage = "url(\"background.jpg\")";
     wyniki.style.display = "flex";
+    punktacja.style.display = "flex";
 }
 
 function sortujRanking(a: number[], b: number[]) {
@@ -288,6 +289,7 @@ const wynikiSingle = document.querySelectorAll(".wyniki__single");
 const twojWynik = document.querySelector(".twoj_wynik") as HTMLInputElement;
 const rankingPole = document.querySelectorAll(".ranking__pole");
 const zapiszWynikStat = document.querySelector(".btn-zapisz-stat") as HTMLInputElement;
+const punktacja = document.querySelector(".points") as HTMLInputElement;
 
 poprzednie.setAttribute("onclick", "poprzedniePytanie()");
 nastepne.setAttribute("onclick", "nastepnePytanie()");
