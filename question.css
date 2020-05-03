@@ -316,7 +316,7 @@ header {
     
     .timer {
         font-size: 40px;
-        top: 80px;
+        top: 70px;
         right: 50px;
     }
 
@@ -379,5 +379,28 @@ header {
     .navigation img {
         height: 30px;
         margin-left: 15px;
+    }
+}
+
+
+@media (max-height: 620px) {
+    .points {
+        display: none;
+    }
+
+    .navigation {
+        bottom: 10px;
+    }
+
+    .question {
+        top: 26%;
+    }
+
+    .question__label {
+        font-size: 30px;
+    }
+    
+    .question__option {
+        font-size: 25px;
     }
 }
