@@ -92,6 +92,7 @@ function ustawWidokWyniku() {
     calyBoxPytania.style.display = "none";
     document.body.style.backgroundImage = "url(\"background.jpg\")";
     wyniki.style.display = "flex";
+    punktacja.style.display = "flex";
 }
 function sortujRanking(a, b) {
     if (a[0] < b[0]) {
@@ -220,6 +221,7 @@ var wynikiSingle = document.querySelectorAll(".wyniki__single");
 var twojWynik = document.querySelector(".twoj_wynik");
 var rankingPole = document.querySelectorAll(".ranking__pole");
 var zapiszWynikStat = document.querySelector(".btn-zapisz-stat");
+var punktacja = document.querySelector(".points");
 poprzednie.setAttribute("onclick", "poprzedniePytanie()");
 nastepne.setAttribute("onclick", "nastepnePytanie()");
 zakoncz.setAttribute("onclick", "zakonczQuiz()");
