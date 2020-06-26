@@ -1,12 +1,20 @@
 {
-  "name": "quiz",
+  "name": "quiz2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Marta Markocka",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@types/sqlite3": "^3.1.6",
+    "ts-node": "^8.10.2"
+  }
 }
