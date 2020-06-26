@@ -1,0 +1,84 @@
+@font-face {
+    font-family: "Jost";
+    src: url("assets/Jost-Font/Jost-400-Book.ttf") format("truetype");
+}
+
+body {
+    font-family: "Jost", sans-serif;
+    background-image: url("assets/background.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    color: white;
+}
+
+header {
+    text-align: center;
+    font-size: 80px;
+    margin: 15% 0 10% 0;
+    font-family: "Jost", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    width: 40%;
+    margin: 0 30%;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    opacity: 0.6;
+    height: 100px;
+    margin: 20px 35%;
+    color: black;
+    font-size: 40px;
+    text-transform: uppercase;
+    transition: opacity 1s, width 1s, height 1s, margin 1s;
+}
+
+.btn:hover {
+    background-color: white;
+    opacity: 0.9;
+    height: 110px;
+    margin: 20px 34%;
+}
+
+form {
+    width: 30%;
+    margin: 0 35%;
+    padding: 20px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    opacity: 0.8;
+}
+
+input {
+    border: none;
+    text-align: left;
+    color: #151515;
+    font-size: 30px;
+    background-color: white;
+    outline: none;
+    margin: 20px 10px 20px 0;
+}
+
+div.underscore {
+    padding: 1px;
+    width: 100%;
+    margin: 2px 0 40px 0;
+    background-color: black;
+}
+
+input[type=submit] {
+    text-align: center;
+}
+
+.error {
+    width: 30%;
+    margin: 10px 35%;
+    font-size: 22px;
+}

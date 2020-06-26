@@ -27,33 +27,168 @@ app.use(session({secret: "Shh, its a secret!"}));
 
 app.set('view engine', 'pug');
 
-app.get('/', function (req, res) {
-    res.render('index', {
-        title: 'meme market',
-        message: 'I\'m not good in memes, so I used random pictures, sorry',
-        memes: selected,
-        token: req.csrfToken(),
+function openImage(req, res, justOpen: boolean) {
+    let fd;
+    let path = './assets/' + req.params.image;
+    let filename = req.params.image;
+    open(path, 'a').then((_fd) => {
+        fd = _fd;
+        fs.readFile(path, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.write(err);
+                res.end();
+            } else if (justOpen) {
+                res.write(data);
+                res.end();
+            } else {
+                console.log("justOpen=false");
+            }
+        });
+    }).then(() => close(fd)).catch((reason) => {
+        console.log('ERROR: ', reason);
     });
+}
+
+const createAccount = (login, password) => {
+    return new Promise((resolve, reject) => {
+        console.log("dodaj do bazy " + login + " " + password);
+        db.run('INSERT INTO users (login, password) VALUES ("' + login + '", "' + password + '");');
+        resolve();
+    });
+}
+
+const doesAccountExist = (login) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT login FROM users WHERE login = "' + login + '";';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            if (rows.length === 0) {
+                resolve(0);
+            } else {
+                console.log(rows[0].login + " " + rows[0].password);
+                resolve(1);
+            }
+        });
+    });
+}
+
+const checkPassword = (login, password) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT login, password FROM users WHERE login = "' + login + '";';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            if (rows[0].password === password) {
+                resolve(1);
+            } else {
+                resolve(0);
+            }
+        });
+    });
+}
+
+const selectQuizzes = () => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT name FROM quizzes;';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            let quizzes: String[] = [];
+            for (let {name} of rows) {
+                quizzes.push(name);
+            }
+            resolve(quizzes);
+        });
+    });
+}
+
+app.get('/', function (req, res) {
+    res.render('start', {});
 });
 
 app.post('/', function (req, res) {
-    console.log(`Message received: ${req.body.nick}`);
-    console.log(`CSRF token used: ${req.body._csrf}`);
+    console.log(`Login: ${req.body.login}`);
+    console.log(`Hasło: ${req.body.password}`);
+    console.log(`New account: ${req.body.create}`);
+    console.log(`CSRF token: ${req.body._csrf}`);
 
-    countPageViews()
-        .then( () => {
-            return getUserNick();
-        })
-        .then( (currentNick) => {
-            return logInUser(req.body.nick, currentNick);
-        })
-        .then( () => {
-            return chooseTheMostExpensive3();
-        })
-        .then( (selected) => {
-            return openPageMain(req, res, selected);
+    const create = (req.body.create === "yes");
+
+    doesAccountExist(req.body.login)
+        .then( (exist) => {
+            console.log("create=" + create + " exist=" + exist);
+            if (create && exist) {
+                //chcę stworzyć konto, ale taki login już istnieje
+                console.log("taki login już istnieje, wymyśl inny");
+                res.render('register', {token: req.csrfToken(), errorMsg: "już istnieje użytkownik o takim loginie"});
+            } else if (create) {
+                //chcę stworzyć konto i taki login jeszcze nie istnieje
+                console.log("stwórz konto");
+                createAccount(req.body.login, req.body.password)
+                    .then( () => {
+                        req.session.login = req.body.login;
+                        console.log("zarejestruj");
+                        selectQuizzes()
+                            .then( (quizzes) => {
+                                res.render('quizzes', {quizzes: quizzes});
+                            })
+                            .catch((error) => {
+                                console.log(error.message);
+                            });
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });
+            } else if (exist) {
+                //chcę się zalogować i taki login już istnieje
+                checkPassword(req.body.login, req.body.password)
+                    .then( (correct) => {
+                        if (correct) {
+                            req.session.login = req.body.login;
+                            console.log("zaloguj");
+                            selectQuizzes()
+                                .then( (quizzes) => {
+                                    res.render('quizzes', {quizzes: quizzes});
+                                })
+                                .catch((error) => {
+                                    console.log(error.message);
+                                });
+
+                        } else {
+                            console.log("niepoprawne hasło");
+                            res.render('login', {token: req.csrfToken(), errorMsg: "niepoprawne hasło"});
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });
+            } else {
+                //chcę się zalogować, ale taki login nie istnieje
+                console.log("niepoprawny login");
+                res.render('login', {token: req.csrfToken(), errorMsg: "użytkownik o takim loginie nie istnieje"});
+            }
         })
         .catch((error) => {
             console.log(error.message);
         });
+});
+
+app.get('/login', function (req, res) {
+    res.render('login', {token: req.csrfToken(), errorMsg: ""});
+});
+
+app.get('/register', function (req, res) {
+    res.render('register', {token: req.csrfToken(), errorMsg: ""});
+});
+
+app.get('/assets/:image', function (req, res) {
+    openImage(req, res,true);
+});
+
+
+const PORT = 3000;
+app.listen(PORT, function () {
+    console.log(`Listening on http://localhost:${PORT}`);
 });

@@ -1,0 +1,17 @@
+html
+    head
+        title= "Start"
+    style
+        include start.css
+    body
+        header= "Liczyć każdy może..."
+        form(action="/" method="POST")
+            input(type='text', placeholder='login', name='login')
+            div(class='underscore')
+            input(type='password', placeholder='hasło', name='password')
+            div(class='underscore')
+            input(type="hidden" name="create" value="yes")
+            input(type="hidden" name="_csrf" value=token)
+            a(href="./")
+                input(type="submit", name="zarejestruj", value="Zarejestruj się")
+            div(class="error")= errorMsg
