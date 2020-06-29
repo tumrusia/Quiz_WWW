@@ -1,0 +1,57 @@
+html
+    head
+        title= "Play"
+    style
+        include play.css
+    body
+        header= name
+            div(class="header__subtitle")= "Pytanie 1/4"
+
+        div(class="timer")= "0:00"
+
+        div(class="question")
+            div(class="question__label")= "Ile to 2-3?"
+            label(class="question__option")
+                div(class="option--1")="1"
+                input(type="radio" name="radio")
+                span(class="checkmark")
+            label(class="question__option")
+                div(class="option--2")="2"
+                input(type="radio" name="radio")
+                span(class="checkmark")
+            label(class="question__option")
+                div(class="option--3")="-1"
+                input(type="radio" name="radio")
+                span(class="checkmark")
+
+        div(class="wyniki")
+            div(class="twoj_wynik")= "Twój wynik:"
+            div(class="wyniki__single")= "Pytanie 1."
+            div(class="wyniki__single")= "Pytanie 2."
+            div(class="wyniki__single")= "Pytanie 3."
+            div(class="wyniki__single")= "Pytanie 4."
+            div(class="wyniki__ranking")= "Ranking:"
+            div(class="ranking__pole")= "1. miejsce 0m 55s"
+            div(class="ranking__pole")= "2. miejsce 1m 5s"
+            div(class="ranking__pole")= "3. miejsce 1m 7s"
+            div(class="zapisz")
+                a(href="/quizzes/" + id)
+                    div(class="btn-zapisz-wynik")= "Zapisz wynik"
+                a(href="/quizzes/" + id)
+                    div(class="btn-zapisz-stat")= "Zapisz wynik i statystyki"
+
+        div(class="points")= "Każda błędna odpowiedź to +30s do Twojego wyniku"
+
+        div(class="navigation")
+            a(href="/quizzes/" + id class="navigation__break")
+                div= "Przerwij"
+                    img(src="/assets/icons/icons8-cancel-40.png")
+            div(class="navigation__finish")= "Zakończ"
+                img(src="/assets/icons/icons8-ok-40.png")
+            div(class="navigation__next")= "Następne pytanie"
+                img(src="/assets/icons/icons8-next-page-40.png")
+            div(class="navigation__prev")= "Poprzednie pytanie"
+                img(src="/assets/icons/icons8-back-to-40.png")
+
+        script
+            include play.js

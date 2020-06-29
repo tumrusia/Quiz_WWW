@@ -1,0 +1,185 @@
+@font-face {
+    font-family: "Jost";
+    src: url("/assets/Jost-Font/Jost-400-Book.ttf") format("truetype");
+}
+
+header { grid-area: header; }
+.timer { grid-area: timer; }
+.central { grid-area: cent; }
+.points { grid-area: points; }
+.navigation { grid-area: navig;}
+
+
+body {
+    font-family: "Jost", sans-serif;
+    background-image: url("/assets/background-light.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    color: white;
+    display: grid;
+    grid-template-areas:
+    'header timer'
+    'cent cent'
+    'points navig';
+}
+
+header {
+    text-align: left;
+    font-size: 60px;
+    position: absolute;
+    left: 30px;
+    top: 20px;
+}
+
+.timer {
+    font-size: 100px;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+
+.question {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 45%;
+    top: 30%;
+}
+
+.wyniki {
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+    opacity: 0.8;
+    position: absolute;
+    left: 35%;
+    top: 15%;
+    height: 70%;
+    width: 30%;
+    border-radius: 2%;
+    font-size: 25px;
+    padding: 20px 0 0 40px;
+}
+
+.twoj_wynik {
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.wyniki__single {
+    margin: 5% 0 0 5%;
+}
+
+.wyniki__ranking {
+    margin-top: 7%;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.ranking__pole {
+    margin: 5% 0 0 5%;
+}
+
+.zapisz {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 85%;
+    font-size: 22px;
+}
+
+.zapisz a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn-zapisz-wynik, .btn-zapisz-stat {
+    background-color: rgb(151, 205, 250);
+    opacity: 0.9;
+    border-radius: 5%;
+    padding: 5px 10px;
+}
+
+.question__label {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.question__option {
+    font-size: 40px;
+    margin-bottom: 12px;
+    padding-left: 60px;
+    position: relative;
+}
+
+/* Hide the browser's default radio button */
+.question input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.question__option:hover input ~ .checkmark {
+    background-color: rgb(160, 235, 231);
+}
+
+.question__option input:checked ~ .checkmark {
+    background-color: rgb(40, 177, 170);
+}
+
+.points {
+    font-size: 35px;
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+}
+
+.navigation {
+    font-size: 40px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    text-align: right;
+}
+
+.navigation div {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.navigation img {
+    margin-left: 15px;
+    margin-bottom: 7px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation__finish {
+    pointer-events: none;
+    opacity: 0.5;
+}
+.navigation__prev {
+    pointer-events: none;
+    opacity: 0.5;
+}

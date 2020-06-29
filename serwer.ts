@@ -27,9 +27,8 @@ app.use(session({secret: "Shh, its a secret!"}));
 
 app.set('view engine', 'pug');
 
-function openImage(req, res, justOpen: boolean) {
+function openImage(req, res, path: string) {
     let fd;
-    let path = './assets/' + req.params.image;
     let filename = req.params.image;
     open(path, 'a').then((_fd) => {
         fd = _fd;
@@ -38,11 +37,9 @@ function openImage(req, res, justOpen: boolean) {
                 res.writeHead(404);
                 res.write(err);
                 res.end();
-            } else if (justOpen) {
+            } else {
                 res.write(data);
                 res.end();
-            } else {
-                console.log("justOpen=false");
             }
         });
     }).then(() => close(fd)).catch((reason) => {
@@ -91,15 +88,31 @@ const checkPassword = (login, password) => {
 
 const selectQuizzes = () => {
     return new Promise((resolve, reject) => {
-        let zapytanie = 'SELECT name FROM quizzes;';
+        let zapytanie = 'SELECT id, name FROM quizzes;';
         db.all(zapytanie, [], (err, rows) => {
             if (err) throw (err);
 
-            let quizzes: String[] = [];
-            for (let {name} of rows) {
-                quizzes.push(name);
+            let quizzes = [];
+            for (let {id, name} of rows) {
+                let o = {id: id, name: name};
+                quizzes.push(o);
             }
             resolve(quizzes);
+        });
+    });
+}
+
+const getQuizName = (id) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT name FROM quizzes WHERE id = ' + id + ';';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            if (rows.length !== 1) {
+                reject("ID quizu nie jest unikatowe");
+            } else {
+                resolve(rows[0].name);
+            }
         });
     });
 }
@@ -108,17 +121,17 @@ app.get('/', function (req, res) {
     res.render('start', {});
 });
 
-app.post('/', function (req, res) {
+app.get('/quizzes', function (req, res) {
+    res.render('start', {});
+});
+
+app.post('/quizzes', function (req, res) {
     console.log(`Login: ${req.body.login}`);
-    console.log(`Hasło: ${req.body.password}`);
-    console.log(`New account: ${req.body.create}`);
-    console.log(`CSRF token: ${req.body._csrf}`);
 
     const create = (req.body.create === "yes");
 
     doesAccountExist(req.body.login)
         .then( (exist) => {
-            console.log("create=" + create + " exist=" + exist);
             if (create && exist) {
                 //chcę stworzyć konto, ale taki login już istnieje
                 console.log("taki login już istnieje, wymyśl inny");
@@ -184,7 +197,31 @@ app.get('/register', function (req, res) {
 });
 
 app.get('/assets/:image', function (req, res) {
-    openImage(req, res,true);
+    openImage(req, res,'./assets/' + req.params.image);
+});
+
+app.get('/assets/icons/:image', function (req, res) {
+    openImage(req, res,'./assets/icons/' + req.params.image);
+});
+
+app.get('/quizzes/:quizID', function (req, res) {
+    getQuizName(req.params.quizID)
+        .then((name) => {
+            res.render('quiz', {id: req.params.quizID, name: name});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+app.get('/play/:quizID', function (req, res) {
+    getQuizName(req.params.quizID)
+        .then((name) => {
+            res.render('play', {id: req.params.quizID, name: name});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 });
 
 

@@ -4590,11 +4590,11 @@
       <change afterPath="$PROJECT_DIR$/../meme_market_11_WWW" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../meme_market_WWW" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/initDB.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quiz.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/login.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/quizzes.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/register.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/play.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/play.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/play.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/play.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/quiz.pug" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/modules.xml" afterDir="false" />
@@ -5649,12 +5649,17 @@
       <change afterPath="$PROJECT_DIR$/../quiz_help/serwer.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/views/start.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/views/start.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/createDB.ts" beforeDir="false" afterPath="$PROJECT_DIR$/createDB.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initDB.ts" beforeDir="false" afterPath="$PROJECT_DIR$/initDB.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz.db" beforeDir="false" afterPath="$PROJECT_DIR$/quiz.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serwer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/serwer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/quizzes.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/quizzes.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/views/start.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/start.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/start.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -5677,7 +5682,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../quiz/main.ts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../quiz/question.css" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
@@ -5692,7 +5697,8 @@
       <option name="presentableId" value="Default" />
       <updated>1593183486347</updated>
       <workItem from="1593183487517" duration="2018000" />
-      <workItem from="1593185507890" duration="13976000" />
+      <workItem from="1593185507890" duration="14064000" />
+      <workItem from="1593433351458" duration="11252000" />
     </task>
     <servers />
   </component>
@@ -5709,31 +5715,37 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="595" y="296" width="719" height="444" key="EditFileWatcherDialog" timestamp="1593185513611">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="595" y="296" width="719" height="444" key="EditFileWatcherDialog/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185513611" />
-    <state x="743" y="277" width="424" height="483" key="FileChooserDialogImpl" timestamp="1593200713738">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl" timestamp="1593438337074">
+      <screen x="13" y="0" width="1920" height="1080" />
     </state>
     <state x="743" y="277" width="424" height="483" key="FileChooserDialogImpl/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593200713738" />
-    <state width="1874" height="274" key="GridCell.Tab.0.bottom" timestamp="1593185536624">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593438337074" />
+    <state width="1874" height="274" key="GridCell.Tab.0.bottom" timestamp="1593434011131">
+      <screen x="13" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185536624" />
-    <state width="1874" height="274" key="GridCell.Tab.0.center" timestamp="1593185536623">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593201049863" />
+    <state width="1874" height="274" key="GridCell.Tab.0.bottom/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593434011131" />
+    <state width="1874" height="274" key="GridCell.Tab.0.center" timestamp="1593434011131">
+      <screen x="13" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="274" key="GridCell.Tab.0.center/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185536623" />
-    <state width="1874" height="274" key="GridCell.Tab.0.left" timestamp="1593185536623">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="274" key="GridCell.Tab.0.center/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593201049862" />
+    <state width="1874" height="274" key="GridCell.Tab.0.center/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593434011131" />
+    <state width="1874" height="274" key="GridCell.Tab.0.left" timestamp="1593434011131">
+      <screen x="13" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="274" key="GridCell.Tab.0.left/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185536623" />
-    <state width="1874" height="274" key="GridCell.Tab.0.right" timestamp="1593185536624">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="274" key="GridCell.Tab.0.left/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593201049862" />
+    <state width="1874" height="274" key="GridCell.Tab.0.left/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593434011131" />
+    <state width="1874" height="274" key="GridCell.Tab.0.right" timestamp="1593434011131">
+      <screen x="13" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="274" key="GridCell.Tab.0.right/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185536624" />
+    <state width="1874" height="274" key="GridCell.Tab.0.right/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593201049862" />
+    <state width="1874" height="274" key="GridCell.Tab.0.right/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593434011131" />
   </component>
 </project>

@@ -5,7 +5,7 @@
 
 body {
     font-family: "Jost", sans-serif;
-    background-image: url("assets/background.jpg");
+    background-image: url("/assets/background.jpg");
     background-repeat: repeat;
     background-size: cover;
     color: white;
@@ -20,8 +20,10 @@ header {
 
 a {
     text-decoration: none;
+    text-align: center;
     width: 40%;
     margin: 0 30%;
+    color: black;
 }
 
 .btn {
@@ -81,4 +83,11 @@ input[type=submit] {
     width: 30%;
     margin: 10px 35%;
     font-size: 22px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: black;
 }

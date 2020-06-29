@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serwer": "npx ts-node serwer.ts",
-    "createDB": "npx ts-node createDB.ts"
+    "serwer": "tsc views/play.ts; npx ts-node serwer.ts",
+    "createDB": "npx ts-node createDB.ts",
+    "initDB": "npx ts-node initDB.ts"
   },
   "author": "",
   "license": "ISC",

@@ -5,3 +5,8 @@ html
         include start.css
     body
         header= "Liczyć każdy może..."
+
+        ul
+            each quiz in quizzes
+                li(class="btn")
+                    a(href='/quizzes/' + quiz.id)=quiz.name

@@ -3,9 +3,13 @@ import * as sqlite3 from 'sqlite3';
 sqlite3.verbose();
 let db = new sqlite3.Database('quiz.db');
 
-function addQuizToDB(name: string, id: number) {
-    let date: string = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    db.run('INSERT INTO meme (url, price, date, actual) VALUES ("' + filename + '", ' + price + ', "' + date + '", 1);');
+function addQuizToDB(quizName: string, quizID: number, daneQuizu: string) {
+    db.run('INSERT INTO quizzes (name, id) VALUES ("' + quizName + '", ' + quizID + ');');
+
+    let dane = JSON.parse(daneQuizu);
+    for (let i = 0; i < dane.pytania.length; i++) {
+        db.run('INSERT INTO questions (quizID, id, question, answer1, answer2, answer3, correctAnswer) VALUES ("' + quizID + '", ' + i + ', "' + dane.pytania[i] + '", "' + dane.odp1[i] + '", "' + dane.odp2[i] + '", "' + dane.odp3[i] + '", "' + dane.odpPoprawnaId[i] + '");');
+    }
 }
 
 let jsonDaneQuizu: string = `{
@@ -42,18 +46,11 @@ let jsonDaneQuizu: string = `{
 }`;
 
 function initDB() {
-    addQuizToDB('1.jpg', 20);
-    addQuizToDB('2.jpg', 21);
-    addQuizToDB('3.jpg', 22);
-    addQuizToDB('4.jpg', 23);
-    addQuizToDB('5.jpg', 24);
-    addQuizToDB('6.jpg', 25);
-    addQuizToDB('7.jpg', 26);
-    addQuizToDB('8.jpg', 27);
-    addQuizToDB('9.jpg', 28);
-    addQuizToDB('10.jpg', 29);
-
-    db.run('INSERT INTO session (nick, pages, expire, actual) VALUES ("", 0, "", 1);');
+    addQuizToDB("Quiz 1", 1, jsonDaneQuizu);
+    addQuizToDB("Quiz 2", 2, jsonDaneQuizu);
+    addQuizToDB("Quiz 3", 3, jsonDaneQuizu);
+    addQuizToDB("Quiz 4", 4, jsonDaneQuizu);
+    addQuizToDB("Quiz 5", 5, jsonDaneQuizu);
 }
 
 initDB();

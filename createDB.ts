@@ -16,15 +16,15 @@ function createDB() {
     db.run('CREATE TABLE quizzes (name VARCHAR(255) NOT NULL, id INT NOT NULL PRIMARY KEY);');
     /* TABLE questions
      * quizID INT NOT NULL
-     * id INT NOT NULL PRIMARY KEY
+     * id INT NOT NULL
      * question VARCHAR(255) NOT NULL
      * answer1 VARCHAR(255) NOT NULL
      * answer2 VARCHAR(255) NOT NULL
      * answer3 VARCHAR(255) NOT NULL
-     * answer4 VARCHAR(255) NOT NULL
      * correctAnswer INT NOT NULL
+     * CONSTRAINT key PRIMARY KEY (quizID, id)
      */
-    db.run('CREATE TABLE questions (quizID INT NOT NULL, id INT NOT NULL PRIMARY KEY, question VARCHAR(255) NOT NULL, answer1 VARCHAR(255) NOT NULL, answer2 VARCHAR(255) NOT NULL, answer3 VARCHAR(255) NOT NULL, answer4 VARCHAR(255) NOT NULL, correctAnswer INT NOT NULL);');
+    db.run('CREATE TABLE questions (quizID INT NOT NULL, id INT NOT NULL, question VARCHAR(255) NOT NULL, answer1 VARCHAR(255) NOT NULL, answer2 VARCHAR(255) NOT NULL, answer3 VARCHAR(255) NOT NULL, correctAnswer INT NOT NULL, CONSTRAINT key PRIMARY KEY (quizID, id));');
 }
 
 createDB();
