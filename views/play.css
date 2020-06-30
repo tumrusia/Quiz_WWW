@@ -84,7 +84,7 @@ header {
 
 .zapisz {
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -97,11 +97,17 @@ header {
     color: black;
 }
 
-.btn-zapisz-wynik, .btn-zapisz-stat {
+.btn-zapisz-wynik {
     background-color: rgb(151, 205, 250);
     opacity: 0.9;
     border-radius: 5%;
     padding: 5px 10px;
+    font-size: 30px;
+}
+
+input {
+    border: none;
+    color: black;
 }
 
 .question__label {
@@ -182,4 +188,8 @@ header {
 .navigation__prev {
     pointer-events: none;
     opacity: 0.5;
+}
+
+.quiz-content {
+    display: none;
 }

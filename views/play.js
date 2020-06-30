@@ -1,4 +1,3 @@
-var jsonDaneQuizu = "{\n    \"pytania\": [\n        \"Ile to 2-3?\",\n        \"Ile to 1+1?\",\n        \"Ile to 5*0?\",\n        \"Ile to 36:9?\"\n    ],\n    \"odp1\": [\n        \"1\",\n        \"11\",\n        \"0\",\n        \"5\"\n    ],\n    \"odp2\": [\n        \"2\",\n        \"2\",\n        \"-5\",\n        \"4\"\n    ],\n    \"odp3\": [\n        \"-1\",\n        \"1\",\n        \"5\",\n        \"3\"\n    ],\n    \"odpPoprawnaId\": [\n        2,\n        1,\n        0,\n        1\n    ]\n}";
 function zaktualizujOdpowiedzi() {
     opcjeOdp.forEach(function (item, index) {
         var input = item.childNodes[1];
@@ -134,8 +133,10 @@ function zsumujCzasGry() {
     var mmSumaCzasu = 0;
     var ssSumaCzasu = 0;
     wynikiSingle.forEach(function (item, index) {
-        console.log("id poprawnej odp i odp gracza", daneQuizu.odpPoprawnaId[index], odpowiedziGracza[index]);
-        if (daneQuizu.odpPoprawnaId[index] === odpowiedziGracza[index]) {
+        var poprawna = daneQuizu.odpPoprawnaId[index].toString();
+        var gracza = odpowiedziGracza[index].toString();
+        console.log("id poprawnej odp i odp gracza", poprawna, gracza);
+        if (poprawna === gracza) {
             var ans = ifPoprawnaOdp(item, index, mmSumaCzasu, ssSumaCzasu);
             mmSumaCzasu = ans[0];
             ssSumaCzasu = ans[1];
@@ -155,6 +156,12 @@ function zapiszDoLocalStorage() {
     localStorage.setItem("jsonRanking", jsonRanking);
     console.log(daneRanking);
     console.log(jsonRanking);
+}
+function przeslijNaSerwer() {
+    var czasy = document.querySelector("input[name=times]");
+    var odpowiedzi = document.querySelector("input[name=answers]");
+    czasy.value = JSON.stringify(czasDlaPytania);
+    odpowiedzi.value = JSON.stringify(odpowiedziGracza);
 }
 function zakonczQuiz() {
     ustawWidokWyniku();
@@ -178,8 +185,15 @@ function zapiszStatystyki() {
         daneRanking.stat[daneRanking.stat.length - 1][i][1] = czasDlaPytania[i][1];
     }
     zapiszDoLocalStorage();
+    przeslijNaSerwer();
 }
-var daneQuizu = JSON.parse(jsonDaneQuizu);
+var quizContentField = document.querySelector(".quiz-content");
+var daneQuizuString = quizContentField.textContent;
+var help = daneQuizuString;
+while (daneQuizuString !== daneQuizuString.replace("''", "\"")) {
+    daneQuizuString = daneQuizuString.replace("''", "\"");
+}
+var daneQuizu = JSON.parse(daneQuizuString);
 var ilePytan = 4;
 var aktualnePytanie = 0;
 var odpowiedziGracza = [-1, -1, -1, -1];
@@ -220,7 +234,7 @@ var wyniki = document.querySelector(".wyniki");
 var wynikiSingle = document.querySelectorAll(".wyniki__single");
 var twojWynik = document.querySelector(".twoj_wynik");
 var rankingPole = document.querySelectorAll(".ranking__pole");
-var zapiszWynikStat = document.querySelector(".btn-zapisz-stat");
+var zapiszWynik = document.querySelector(".btn-zapisz-wynik");
 var punktacja = document.querySelector(".points");
 poprzednie.setAttribute("onclick", "poprzedniePytanie()");
 nastepne.setAttribute("onclick", "nastepnePytanie()");
@@ -228,7 +242,7 @@ zakoncz.setAttribute("onclick", "zakonczQuiz()");
 opcjeOdp.forEach(function (item, index) {
     item.setAttribute("onclick", "zaktualizujOdpowiedzi()");
 });
-zapiszWynikStat.setAttribute("onclick", "zapiszStatystyki()");
+zapiszWynik.setAttribute("onclick", "zapiszStatystyki()");
 var ss = 0;
 var mm = 0;
 var ssPytanie = 0;

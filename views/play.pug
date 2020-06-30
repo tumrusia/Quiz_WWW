@@ -35,10 +35,13 @@ html
             div(class="ranking__pole")= "2. miejsce 1m 5s"
             div(class="ranking__pole")= "3. miejsce 1m 7s"
             div(class="zapisz")
-                a(href="/quizzes/" + id)
-                    div(class="btn-zapisz-wynik")= "Zapisz wynik"
-                a(href="/quizzes/" + id)
-                    div(class="btn-zapisz-stat")= "Zapisz wynik i statystyki"
+                form(action="/quizzes" method="POST" class="server-stats")
+                    input(type="hidden" name="times" value="hello")
+                    input(type="hidden" name="answers" value="hello")
+                    input(type="hidden" name="quizID" value=id)
+                    input(type="hidden" name="_csrf" value=token)
+                    a(href="/quizzes")
+                        input(type="submit", name="zapisz", value="Zapisz wynik" class="btn-zapisz-wynik")
 
         div(class="points")= "Każda błędna odpowiedź to +30s do Twojego wyniku"
 
@@ -52,6 +55,8 @@ html
                 img(src="/assets/icons/icons8-next-page-40.png")
             div(class="navigation__prev")= "Poprzednie pytanie"
                 img(src="/assets/icons/icons8-back-to-40.png")
+
+        div(class="quiz-content")= content
 
         script
             include play.js

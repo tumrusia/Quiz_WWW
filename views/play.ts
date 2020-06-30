@@ -1,36 +1,3 @@
-let jsonDaneQuizu: string = `{
-    "pytania": [
-        "Ile to 2-3?",
-        "Ile to 1+1?",
-        "Ile to 5*0?",
-        "Ile to 36:9?"
-    ],
-    "odp1": [
-        "1",
-        "11",
-        "0",
-        "5"
-    ],
-    "odp2": [
-        "2",
-        "2",
-        "-5",
-        "4"
-    ],
-    "odp3": [
-        "-1",
-        "1",
-        "5",
-        "3"
-    ],
-    "odpPoprawnaId": [
-        2,
-        1,
-        0,
-        1
-    ]
-}`;
-
 function zaktualizujOdpowiedzi() {
     opcjeOdp.forEach( (item, index) => {
         const input = item.childNodes[1] as HTMLInputElement;
@@ -172,8 +139,10 @@ function zsumujCzasGry() {
     let mmSumaCzasu = 0;
     let ssSumaCzasu = 0;
     wynikiSingle.forEach( (item, index) => {
-        console.log("id poprawnej odp i odp gracza", daneQuizu.odpPoprawnaId[index], odpowiedziGracza[index]);
-        if (daneQuizu.odpPoprawnaId[index] === odpowiedziGracza[index]) {
+        let poprawna = daneQuizu.odpPoprawnaId[index].toString();
+        let gracza = odpowiedziGracza[index].toString();
+        console.log("id poprawnej odp i odp gracza", poprawna, gracza);
+        if (poprawna === gracza) {
             const ans = ifPoprawnaOdp(item, index, mmSumaCzasu, ssSumaCzasu);
             mmSumaCzasu = ans[0];
             ssSumaCzasu = ans[1];
@@ -193,6 +162,13 @@ function zapiszDoLocalStorage() {
     localStorage.setItem("jsonRanking", jsonRanking);
     console.log(daneRanking);
     console.log(jsonRanking);
+}
+
+function przeslijNaSerwer() {
+    const czasy = document.querySelector("input[name=times]") as HTMLInputElement;
+    const odpowiedzi = document.querySelector("input[name=answers]") as HTMLInputElement;
+    czasy.value = JSON.stringify(czasDlaPytania);
+    odpowiedzi.value = JSON.stringify(odpowiedziGracza);
 }
 
 function zakonczQuiz() {
@@ -221,9 +197,16 @@ function zapiszStatystyki() {
         daneRanking.stat[daneRanking.stat.length-1][i][1] = czasDlaPytania[i][1];
     }
     zapiszDoLocalStorage();
+    przeslijNaSerwer();
 }
 
-let daneQuizu = JSON.parse(jsonDaneQuizu);
+const quizContentField = document.querySelector(".quiz-content") as HTMLInputElement;
+let daneQuizuString = quizContentField.textContent;
+let help = daneQuizuString;
+while (daneQuizuString !== daneQuizuString.replace("''", "\"")) {
+    daneQuizuString = daneQuizuString.replace("''", "\"");
+}
+let daneQuizu = JSON.parse(daneQuizuString);
 
 let ilePytan = 4;
 let aktualnePytanie = 0;
@@ -288,7 +271,7 @@ const wyniki = document.querySelector(".wyniki") as HTMLInputElement;
 const wynikiSingle = document.querySelectorAll(".wyniki__single");
 const twojWynik = document.querySelector(".twoj_wynik") as HTMLInputElement;
 const rankingPole = document.querySelectorAll(".ranking__pole");
-const zapiszWynikStat = document.querySelector(".btn-zapisz-stat") as HTMLInputElement;
+const zapiszWynik = document.querySelector(".btn-zapisz-wynik") as HTMLInputElement;
 const punktacja = document.querySelector(".points") as HTMLInputElement;
 
 poprzednie.setAttribute("onclick", "poprzedniePytanie()");
@@ -297,7 +280,7 @@ zakoncz.setAttribute("onclick", "zakonczQuiz()");
 opcjeOdp.forEach( (item, index) => {
     item.setAttribute("onclick", "zaktualizujOdpowiedzi()");
 });
-zapiszWynikStat.setAttribute("onclick", "zapiszStatystyki()");
+zapiszWynik.setAttribute("onclick", "zapiszStatystyki()");
 
 let ss = 0;
 let mm = 0;

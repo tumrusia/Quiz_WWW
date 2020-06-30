@@ -12,19 +12,18 @@ function createDB() {
     /* TABLE quizzes
      * name VARCHAR(255) NOT NULL
      * id INT NOT NULL PRIMARY KEY
+     * content VARCHAR(1000) NOT NULL
      */
-    db.run('CREATE TABLE quizzes (name VARCHAR(255) NOT NULL, id INT NOT NULL PRIMARY KEY);');
-    /* TABLE questions
+    db.run('CREATE TABLE quizzes (name VARCHAR(255) NOT NULL, id INT NOT NULL PRIMARY KEY, content VARCHAR(1000) NOT NULL);');
+    /* TABLE solutions
+     * login VARCHAR(255) NOT NULL
      * quizID INT NOT NULL
-     * id INT NOT NULL
-     * question VARCHAR(255) NOT NULL
-     * answer1 VARCHAR(255) NOT NULL
-     * answer2 VARCHAR(255) NOT NULL
-     * answer3 VARCHAR(255) NOT NULL
-     * correctAnswer INT NOT NULL
-     * CONSTRAINT key PRIMARY KEY (quizID, id)
+     * times VARCHAR(255) NOT NULL
+     * answers VARCHAR(255) NOT NULL
+     * constraint id PRIMARY KEY (login, quizID)
      */
-    db.run('CREATE TABLE questions (quizID INT NOT NULL, id INT NOT NULL, question VARCHAR(255) NOT NULL, answer1 VARCHAR(255) NOT NULL, answer2 VARCHAR(255) NOT NULL, answer3 VARCHAR(255) NOT NULL, correctAnswer INT NOT NULL, CONSTRAINT key PRIMARY KEY (quizID, id));');
+    db.run('CREATE TABLE solutions (login VARCHAR(255) NOT NULL, quizID INT NOT NULL, times VARCHAR(255) NOT NULL, answers VARCHAR(255) NOT NULL, constraint id PRIMARY KEY (login, quizID));');
+
 }
 
 createDB();

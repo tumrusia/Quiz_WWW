@@ -117,15 +117,52 @@ const getQuizName = (id) => {
     });
 }
 
+const getQuizContent = (id) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT content FROM quizzes WHERE id = ' + id + ';';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            if (rows.length !== 1) {
+                reject("ID quizu nie jest unikatowe");
+            } else {
+                resolve(rows[0].content);
+            }
+        });
+    });
+}
+
+const checkIsSolved = (quizID, login) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT times, answers FROM solutions WHERE login = "' + login + '" AND quizID = ' + quizID + ';';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            if (rows.length > 1) {
+                reject("Wystąpił błąd, w efekcie którego, użytkownik rozwiązywał dwukrotnie ten sam quiz.");
+            } else if (rows.length === 1) {
+                let o = [rows[0].times, rows[0].answers];
+                resolve(o);
+            } else {
+                let o = ["", ""];
+                resolve(o);
+            }
+        });
+    });
+}
+
+const addAnswersToDB = (times, answers, quizID, login) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'INSERT INTO solutions (login, quizID, times, answers) VALUES ("' + login + '", ' + quizID + ', "' + times + '", "' + answers + '");';
+        db.run(zapytanie);
+    });
+}
+
 app.get('/', function (req, res) {
     res.render('start', {});
 });
 
-app.get('/quizzes', function (req, res) {
-    res.render('start', {});
-});
-
-app.post('/quizzes', function (req, res) {
+app.post('/', function (req, res) {
     console.log(`Login: ${req.body.login}`);
 
     const create = (req.body.create === "yes");
@@ -205,19 +242,75 @@ app.get('/assets/icons/:image', function (req, res) {
 });
 
 app.get('/quizzes/:quizID', function (req, res) {
+    let quizName;
     getQuizName(req.params.quizID)
         .then((name) => {
-            res.render('quiz', {id: req.params.quizID, name: name});
+            quizName = name;
+            return checkIsSolved(req.params.quizID, req.session.login);
+        })
+        .then((solution) => {
+            if (solution[0] === "" && solution[1] === "") {
+                // czyli użytkownik jeszcze nie rozwiązywał tego quizu
+                res.render('quiz', {id: req.params.quizID, name: quizName});
+            } else {
+                // czyli użytkownik już rozwiązał ten quiz
+                let times = JSON.parse(solution[0]);
+                let answers = JSON.parse(solution[1]);
+                getQuizContent(req.params.quizID)
+                    .then((name) => {
+                        // TODO: pobierz dane quizu i stwórz statystyki
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                console.log("JUŻ ROZWIĄZAŁ: " + times + " " + answers);
+                res.render('quiz', {id: req.params.quizID, name: quizName});
+            }
         })
         .catch((error) => {
             console.log(error);
         });
 });
 
+app.get('/quizzes', function (req, res) {
+    selectQuizzes()
+        .then( (quizzes) => {
+            res.render('quizzes', {quizzes: quizzes});
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+});
+
+app.post('/quizzes', function (req, res) {
+    selectQuizzes()
+        .then( (quizzes) => {
+            res.render('quizzes', {quizzes: quizzes});
+            addAnswersToDB(req.body.times, req.body.answers, req.body.quizID, req.session.login)
+                .then( (quizzes) => {
+                    res.render('quizzes', {quizzes: quizzes});
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+    console.log("TIMES: " + req.body.times);
+    console.log("ANSWERS: " + req.body.answers);
+    console.log("QUIZID: " + req.body.quizID);
+});
+
 app.get('/play/:quizID', function (req, res) {
+    let quizName;
     getQuizName(req.params.quizID)
         .then((name) => {
-            res.render('play', {id: req.params.quizID, name: name});
+            quizName = name;
+            return getQuizContent(req.params.quizID);
+        })
+        .then((content) => {
+            res.render('play', {id: req.params.quizID, name: quizName, content: content, token: req.csrfToken()});
         })
         .catch((error) => {
             console.log(error);
