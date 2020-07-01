@@ -4590,8 +4590,7 @@
       <change afterPath="$PROJECT_DIR$/../meme_market_11_WWW" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../meme_market_WWW" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/stats.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/stats.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/password.pug" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/.idea/modules.xml" afterDir="false" />
@@ -5647,8 +5646,17 @@
       <change afterPath="$PROJECT_DIR$/../quiz_help/views/start.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../quiz_help/views/start.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initDB.ts" beforeDir="false" afterPath="$PROJECT_DIR$/initDB.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quiz.db" beforeDir="false" afterPath="$PROJECT_DIR$/quiz.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serwer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/serwer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/quiz.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/quiz.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/quizzes.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/quizzes.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/views/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/stats.css" beforeDir="false" afterPath="$PROJECT_DIR$/views/stats.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/stats.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/stats.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -5671,7 +5679,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../meme_market_11_WWW/serwer.ts" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
@@ -5690,7 +5698,7 @@
       <workItem from="1593433351458" duration="21060000" />
       <workItem from="1593546538440" duration="8608000" />
       <workItem from="1593626664859" duration="2902000" />
-      <workItem from="1593629964519" duration="5196000" />
+      <workItem from="1593629964519" duration="9566000" />
     </task>
     <servers />
   </component>
@@ -5714,11 +5722,11 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="595" y="296" width="719" height="444" key="EditFileWatcherDialog/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593185513611" />
-    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl" timestamp="1593438337074">
+    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl" timestamp="1593638690164">
       <screen x="13" y="0" width="1920" height="1080" />
     </state>
     <state x="743" y="277" width="424" height="483" key="FileChooserDialogImpl/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1593200713738" />
-    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593438337074" />
+    <state x="756" y="277" width="424" height="483" key="FileChooserDialogImpl/13.0.1920.1080/0.1080.1920.1080@13.0.1920.1080" timestamp="1593638690164" />
     <state width="926" height="274" key="GridCell.Tab.0.bottom" timestamp="1593629618565">
       <screen x="13" y="0" width="1920" height="1080" />
     </state>

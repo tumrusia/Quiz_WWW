@@ -5,6 +5,13 @@ html
         include start.css
         include stats.css
     body
+        div(class="settings")
+            a(href="/quizzes" class="settings-item")= "Home"
+                img(src="/assets/icons/icons8-pagoda-40.png")
+            a(href="/changePassword" class="settings-item")= "Zmień hasło"
+                img(src="/assets/icons/icons8-refresh-40.png")
+            a(href="/" class="settings-item")= "Wyloguj się"
+                img(src="/assets/icons/icons8-shutdown-40.png")
         h1= name
         h2= "Już grałeś w ten quiz, to Twoje wyniki:"
         table

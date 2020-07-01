@@ -91,3 +91,26 @@ ul {
     padding: 0;
     color: black;
 }
+
+.settings {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 25px;
+    font-family: "Jost", sans-serif;
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0 30px;
+    width: auto;
+}
+
+.settings-item > img {
+    margin-left: 5px;
+}

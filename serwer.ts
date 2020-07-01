@@ -86,6 +86,13 @@ const checkPassword = (login, password) => {
     });
 }
 
+const changePassword = (login, password) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE users SET password = "' + password + '" WHERE login = "' + login + '";');
+        resolve();
+    });
+}
+
 const selectQuizzes = () => {
     return new Promise((resolve, reject) => {
         let zapytanie = 'SELECT id, name FROM quizzes;';
@@ -269,27 +276,20 @@ const calculateAverageTime = (quizID) => {
 }
 
 app.get('/', function (req, res) {
+    req.session.login = "";
     res.render('start', {});
 });
 
 app.post('/', function (req, res) {
-    console.log(`Login: ${req.body.login}`);
-
     const create = (req.body.create === "yes");
-
     doesAccountExist(req.body.login)
         .then( (exist) => {
             if (create && exist) {
-                //chcę stworzyć konto, ale taki login już istnieje
-                console.log("taki login już istnieje, wymyśl inny");
                 res.render('register', {token: req.csrfToken(), errorMsg: "już istnieje użytkownik o takim loginie"});
             } else if (create) {
-                //chcę stworzyć konto i taki login jeszcze nie istnieje
-                console.log("stwórz konto");
                 createAccount(req.body.login, req.body.password)
                     .then( () => {
                         req.session.login = req.body.login;
-                        console.log("zarejestruj");
                         selectQuizzes()
                             .then( (quizzes) => {
                                 res.render('quizzes', {quizzes: quizzes});
@@ -302,12 +302,10 @@ app.post('/', function (req, res) {
                         console.log(error.message);
                     });
             } else if (exist) {
-                //chcę się zalogować i taki login już istnieje
                 checkPassword(req.body.login, req.body.password)
                     .then( (correct) => {
                         if (correct) {
                             req.session.login = req.body.login;
-                            console.log("zaloguj");
                             selectQuizzes()
                                 .then( (quizzes) => {
                                     res.render('quizzes', {quizzes: quizzes});
@@ -317,7 +315,6 @@ app.post('/', function (req, res) {
                                 });
 
                         } else {
-                            console.log("niepoprawne hasło");
                             res.render('login', {token: req.csrfToken(), errorMsg: "niepoprawne hasło"});
                         }
                     })
@@ -326,7 +323,6 @@ app.post('/', function (req, res) {
                     });
             } else {
                 //chcę się zalogować, ale taki login nie istnieje
-                console.log("niepoprawny login");
                 res.render('login', {token: req.csrfToken(), errorMsg: "użytkownik o takim loginie nie istnieje"});
             }
         })
@@ -341,6 +337,45 @@ app.get('/login', function (req, res) {
 
 app.get('/register', function (req, res) {
     res.render('register', {token: req.csrfToken(), errorMsg: ""});
+});
+
+app.get('/changePassword', function (req, res) {
+    res.render('password', {token: req.csrfToken(), errorMsg: ""});
+});
+
+app.post('/home', function (req, res) {
+    doesAccountExist(req.body.login)
+        .then( (exist) => {
+            if (exist) {
+                checkPassword(req.body.login, req.body.password)
+                    .then( (correct) => {
+                        if (correct) {
+                            if (req.body.newPassword !== req.body.newPasswordRepeat) {
+                                res.render('password', {token: req.csrfToken(), errorMsg: "Nowe hasła są różne"});
+                            } else {
+                                changePassword(req.body.login, req.body.newPassword)
+                                    .then (() => {
+                                        req.session.login = "";
+                                        res.render('start', {});
+                                    })
+                                    .catch((error) => {
+                                        console.log(error.message);
+                                    })
+                            }
+                        } else {
+                            res.render('password', {token: req.csrfToken(), errorMsg: "Niepoprawne hasło"});
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });
+            } else {
+                res.render('password', {token: req.csrfToken(), errorMsg: "Konto o takim loginie nie istnieje"});
+            }
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
 });
 
 app.get('/assets/:image', function (req, res) {

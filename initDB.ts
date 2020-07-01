@@ -49,4 +49,12 @@ function initDB() {
     addQuizToDB("Quiz 5", 5, jsonDaneQuizu);
 }
 
+function addUser(login, password) {
+    //zakładam że tutaj dodawany jest unikatowy użytkownik
+    db.run('INSERT INTO users (login, password) VALUES ("' + login + '", "' + password + '");');
+
+}
+
 initDB();
+addUser("user1", "user1");
+addUser("user2", "user2");
