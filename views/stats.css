@@ -1,0 +1,22 @@
+h1, h2 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+table {
+    background: white;
+    color: black;
+    opacity: 0.8;
+    height: 40%;
+    width: 50%;
+    font-size: 20px;
+    padding: 20px 0 0 40px;
+    border-collapse: collapse;
+    margin-left: 25%;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}

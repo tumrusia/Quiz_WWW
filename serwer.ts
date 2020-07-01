@@ -158,6 +158,116 @@ const addAnswersToDB = (times, answers, quizID, login) => {
     });
 }
 
+const summarizeAnswers = (contentString, answers) => {
+    return new Promise((resolve, reject) => {
+        let help = contentString;
+        while (contentString !== contentString.replace("''", "\"")) {
+            contentString = contentString.replace("''", "\"");
+        }
+        let content = JSON.parse(contentString);
+        let stats = [];
+        for (let i = 0; i < 4; i++) {
+            let correctAnswer = content.odp1[i];
+            if (content.odpPoprawnaId[i].toString() === (1).toString()) {
+                correctAnswer = content.odp2[i];
+            } else if (content.odpPoprawnaId[i].toString() === (2).toString()) {
+                correctAnswer = content.odp3[i];
+            }
+            let userAnswer = content.odp1[i];
+            if (answers[i].toString() === (1).toString()) {
+                userAnswer = content.odp2[i];
+            } else if (answers[i].toString() === (2).toString()) {
+                userAnswer = content.odp3[i];
+            }
+            let correctness = "DOBRZE";
+            if (correctAnswer !== userAnswer) {
+                correctness = "ŹLE";
+            }
+            let o = {nr: i+1, question: content.pytania[i], correctAnswer: correctAnswer, userAnswer: userAnswer, correctness: correctness};
+            stats.push(o);
+        }
+        resolve(stats);
+    });
+}
+
+const createRanking = (quizID) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT login, times FROM solutions WHERE quizID = ' + quizID + ';';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            let players = [];
+            for (let {login, times} of rows) {
+                let mm = 0;
+                let ss = 0;
+                times = JSON.parse(times);
+                for (let i = 0; i < 4; i++) {
+                    mm += times[i][0];
+                    ss += times[i][1];
+                }
+                if (ss >= 60) {
+                    let helpSS = ss % 60;
+                    ss -= helpSS;
+                    mm += ss / 60;
+                    ss = helpSS;
+                }
+                let o = {login: login, mm: mm, ss: ss};
+                players.push(o);
+            }
+            players.sort(function compare(a, b) {
+                if (a.mm > b.mm) {
+                    return 1;
+                } else if (a.mm < b.mm) {
+                    return -1;
+                } else if (a.ss > b.ss) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            let ranking = [];
+            for (let i = 0; i < 3 && i < rows.length; i++) {
+                let time: string = players[i].mm.toString() + "m " + players[i].ss.toString() + "s";
+                let o = {place: i+1, name: players[i].login, time: time};
+                ranking.push(o);
+            }
+            resolve(ranking);
+        });
+    });
+}
+
+const calculateAverageTime = (quizID) => {
+    return new Promise((resolve, reject) => {
+        let zapytanie = 'SELECT times FROM solutions WHERE quizID = ' + quizID + ';';
+        db.all(zapytanie, [], (err, rows) => {
+            if (err) throw (err);
+
+            let timeSum = [0,0,0,0];
+            let counter = 0;
+            for (let {times} of rows) {
+                times = JSON.parse(times);
+                for (let i = 0; i < 4; i++) {
+                    timeSum[i] += times[i][0] * 60;
+                    timeSum[i] += times[i][1];
+                }
+                counter++;
+            }
+            let averageTimes = [];
+            for (let i = 0; i < 4; i++) {
+                timeSum[i] = timeSum[i] / counter;
+                let helpSS = timeSum[i] % 60;
+                let ss = timeSum[i] - helpSS;
+                let mm = ss / 60;
+                ss = helpSS;
+                let time: string = mm.toString() + "m " + ss.toString() + "s";
+                let o = {question: i+1, time: time};
+                averageTimes.push(o);
+            }
+            resolve(averageTimes);
+        });
+    });
+}
+
 app.get('/', function (req, res) {
     res.render('start', {});
 });
@@ -256,15 +366,26 @@ app.get('/quizzes/:quizID', function (req, res) {
                 // czyli użytkownik już rozwiązał ten quiz
                 let times = JSON.parse(solution[0]);
                 let answers = JSON.parse(solution[1]);
+                let stats;
+                let ranking;
                 getQuizContent(req.params.quizID)
-                    .then((name) => {
-                        // TODO: pobierz dane quizu i stwórz statystyki
+                    .then((contentString: string) => {
+                        return summarizeAnswers(contentString, answers);
+                    })
+                    .then((statsResult) => {
+                        stats = statsResult;
+                        return createRanking(req.params.quizID);
+                    })
+                    .then((rankingResult) => {
+                        ranking = rankingResult;
+                        return calculateAverageTime(req.params.quizID);
+                    })
+                    .then((averageTimes) => {
+                        res.render('stats', {name: quizName, stats: stats, winners: ranking, averageTimes: averageTimes});
                     })
                     .catch((error) => {
                         console.log(error);
                     });
-                console.log("JUŻ ROZWIĄZAŁ: " + times + " " + answers);
-                res.render('quiz', {id: req.params.quizID, name: quizName});
             }
         })
         .catch((error) => {
@@ -297,9 +418,6 @@ app.post('/quizzes', function (req, res) {
         .catch((error) => {
             console.log(error.message);
         });
-    console.log("TIMES: " + req.body.times);
-    console.log("ANSWERS: " + req.body.answers);
-    console.log("QUIZID: " + req.body.quizID);
 });
 
 app.get('/play/:quizID', function (req, res) {

@@ -1,0 +1,44 @@
+html
+    head
+        title= "Statystyki"
+    style
+        include start.css
+        include stats.css
+    body
+        h1= name
+        h2= "Już grałeś w ten quiz, to Twoje wyniki:"
+        table
+            tr
+                th Numer
+                th Pytanie
+                th Odpowiedź
+                th Twoja odp
+                th Wynik
+            each stat in stats
+                tr
+                    td= stat.nr
+                    td= stat.question
+                    td= stat.correctAnswer
+                    td= stat.userAnswer
+                    td= stat.correctness
+        h2= "Ranking:"
+        table
+            tr
+                th Miejsce
+                th Gracz
+                th Czas
+            each winner in winners
+                tr
+                    td= winner.place
+                    td= winner.name
+                    td= winner.time
+
+        h2= "Średnie czasy:"
+        table
+            tr
+                th Pytanie
+                th Średni czas
+            each time in averageTimes
+                tr
+                    td= time.question
+                    td= time.time
